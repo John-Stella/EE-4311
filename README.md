@@ -108,13 +108,13 @@ Navigate to the folder shown in the symbol browser:
 
 ### 10. Select the NFET symbol
 
-Select `nfet_05v0_nvt.sym` and click **OK** to attach the symbol to your cursor.
+Select `nfet_01v8.sym` and click **OK** to attach the symbol to your cursor.
 
 ![Select the nfet_05v0_nvt symbol](./imgs/10_select_nfet_05v0_nvt-sym_and_press_ok_to_add_symbol.png)
 
 ### 11. Place the transistor symbols
 
-Left-click on the canvas to place the NFET. Repeat the insertion process for `pfet_g5v0d10v5.sym`, placing the PFET above the NFET as shown in the next steps.
+Left-click on the canvas to place the NFET. Repeat the insertion process for `pfet_01v8.sym`, placing the PFET above the NFET as shown in the next steps.
 
 ![Left-click to place the selected transistor](./imgs/11_left_click_to_place.png)
 
@@ -132,7 +132,7 @@ Before continuing, confirm that you have one PFET, one NFET, and two voltage sou
 
 ### 14. Set the supply voltage
 
-Double-click the supply source, labeled `V2` in this example. Change its `value` to `5` and click **OK** to set a 5 V DC supply.
+Double-click the supply source, labeled `V2` in this example. Change its `value` to `"1.8"` and click **OK** to set a 1.8 V DC supply.
 
 ![Set the V2 supply source value to 5 volts](./imgs/14_double_click_on_V2_and_edit_value_to_5_press_ok.png)
 
@@ -141,10 +141,10 @@ Double-click the supply source, labeled `V2` in this example. Change its `value`
 Double-click the input source, labeled `V1` in this example, and set its value to:
 
 ```text
-PULSE(0 5 1n 1n 1n 4n 10n)
+PULSE(0 1.8 1n 10p 10p 19.99n 40n)
 ```
 
-This switches the input between 0 V and 5 V, with a 1 ns initial delay, 1 ns rise and fall times, a 4 ns pulse width, and a 10 ns period. Click **OK** to apply it.
+This switches the input between 0 V and 1.8 V, with a 1 ns initial delay, 1 ns rise and fall times, a 4 ns pulse width, and a 10 ns period. Click **OK** to apply it.
 
 ![Configure V1 as a pulse source](./imgs/15_make_V1_a_pulse.png)
 
@@ -158,7 +158,7 @@ Insert `gnd.sym` from the Xschem `devices` library and place it below the circui
 
 Use the **W** key to start wires at component pins and connect the circuit as shown:
 
-- Connect the PFET source and bulk to the positive terminal of the 5 V supply.
+- Connect the PFET source and bulk to the positive terminal of the 1.8 V supply.
 - Connect the NFET source and bulk, both voltage sources' negative terminals, and ground together.
 - Connect both transistor gates to the positive terminal of the pulse source. This is the input node.
 - Connect the two transistor drains together. This is the output node.
@@ -191,11 +191,11 @@ Double-click the code symbol and enter the following text in its `value` field, 
 
 ```spice
 .lib /foss/pdks/sky130A/libs.tech/ngspice/sky130.lib.spice tt
-.tran 0.1n 100n
+.tran 0.1n 140n
 .save all
 ```
 
-The `.lib` line loads the SKY130 models at the typical (`tt`) process corner. The `.tran` line requests a transient simulation with a 0.1 ns output interval and a 100 ns stop time. The `.save all` line saves signals for plotting. Click **OK**.
+The `.lib` line loads the SKY130 models at the typical (`tt`) process corner. The `.tran` line requests a transient simulation with a 0.1 ns output interval and a 140 ns stop time. The `.save all` line saves signals for plotting. Click **OK**.
 
 ![Enter the SKY130 model and transient simulation directives](./imgs/21_copy_code_below_into_code_symbol.png)
 
